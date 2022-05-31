@@ -1,46 +1,46 @@
-import pygame                       # імпорт бібліотек
+import pygame                       
 from pygame import transform
 from random import randint
 from time import time as timer
 
 from pygame.version import PygameVersion 
 
-pygame.init()           # імпортування бібліотеки для надписів
+pygame.init()           
 pygame.font.init()
 
-font2 = pygame.font.SysFont("Arial", 25)    #задавання шрифту і розміру шрифта
-font1 = pygame.font.SysFont("Arial", 80)    #задавання шрифту і розміру шрифта
+font2 = pygame.font.SysFont("Arial", 25)    
+font1 = pygame.font.SysFont("Arial", 80)    
 
-win_width = 850         # задавання ширини вікна
-win_height = 700        # задавання довжини вікна
+win_width = 850        
+win_height = 700       
 
 
-BLACK = (0, 0 ,0)           # створювання змінних під кольори (зручніше використовувати)
+BLACK = (0, 0 ,0)          
 WHITE = (255, 255, 255)
 YELLOW = (255,211,67)
 RED = (255, 0, 0)
 
-img_backg = "flappy_back.jpg"       # створення змінних під картинки 
+img_backg = "flappy_back.jpg"      
 img_hero = "Bird.png"
 img_finish = "finish.png"
 
 
 
-win = font1.render("YOU WON!", True, (YELLOW))   # створення надпису для перемоги
-lose = font1.render("YOU LOST!", True, (RED))    # створення надпису для програшу
+win = font1.render("YOU WON!", True, (YELLOW))   
+lose = font1.render("YOU LOST!", True, (RED))   
         
 score = 0  
 life = 1
 
-FPS = 60       # задавання фпс (50-60) норм фпс
+FPS = 60       
 
 clock = pygame.time.Clock()
 
 
-window = pygame.display.set_mode((win_width, win_height))       # створення вікна
-pygame.display.set_caption("FlappyBird 2D game")        # задавання назви вікна
+window = pygame.display.set_mode((win_width, win_height))       
+pygame.display.set_caption("FlappyBird 2D game")       
 
-background = transform.scale(pygame.image.load(img_backg), (win_width, win_height))         # створення заднього фону
+background = transform.scale(pygame.image.load(img_backg), (win_width, win_height))        
 
 class GameSprite(pygame.sprite.Sprite):
     def __init__(self, player_image, player_x, player_y, size_x, size_y, player_speed):
@@ -52,27 +52,27 @@ class GameSprite(pygame.sprite.Sprite):
         self.rect.y = player_y
     def reset(self):
         window.blit(self.image, (self.rect.x, self.rect.y))
-class Enemy(GameSprite):        # клас для стін
+class Enemy(GameSprite):       
     pass
-class Player(GameSprite):       # клас для персонажа
+class Player(GameSprite):      
     def update(self):
         keys = pygame.key.get_pressed()
         if keys[pygame.K_SPACE] and self.rect.y > 5: 
             hero.rect.y -= 10
-            #self.rect.x += 7
+        
             
         
 
         
         
 
-hero = Player(img_hero, 5, win_height - 450, 80, 90, 10)            # створення персонажа
+hero = Player(img_hero, 5, win_height - 450, 80, 90, 10)            
 
 heros = pygame.sprite.Group()
 heros.add(hero)
-borders = pygame.sprite.Group()             # створення групи для стін
+borders = pygame.sprite.Group()            
 
-border = Enemy("border2.png", 300, 470, 50, 250, 10)                    #створення стін
+border = Enemy("border2.png", 300, 470, 50, 250, 10)                   
 border2 = Enemy("border2_down.png", 300, 0, 50, 200, 10)
 border3 = Enemy("border2.png", 550, 420, 50, 280, 10)
 border4 = Enemy("border2_down.png", 550, 0, 50, 200, 10)
@@ -88,7 +88,7 @@ border13 = Enemy("border2.png", 1750, 400, 50, 330, 10)
 border14 = Enemy("border2_down.png", 1750, -100, 50, 300, 10)
 border15 = Enemy("border2.png", 2000, 350, 50, 370, 10)
 border16 = Enemy("border2_down.png", 2000, -130, 50, 280, 10)
-border17 = Enemy("border2.png", 2250, 470, 50, 250, 10)                    #створення стін
+border17 = Enemy("border2.png", 2250, 470, 50, 250, 10)              
 border18 = Enemy("border2_down.png", 2250, 0, 50, 200, 10)
 border19 = Enemy("border2_right.png", 2300, 100, 250, 50, 10)
 border20 = Enemy("border2_right.png", 2300, 500, 250, 50, 10)
@@ -110,7 +110,7 @@ coins.add(coin5)
 
 
 
-borders.add(border)     # додавання стін до списку
+borders.add(border)    
 borders.add(border2)
 borders.add(border3)
 borders.add(border4)
@@ -139,7 +139,7 @@ game_finish_gr.add(game_finish)
 playing = True
 finish = False
 
-while playing:                              # ігровий цикл
+while playing:                              
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             playing = False
@@ -181,7 +181,7 @@ while playing:                              # ігровий цикл
         border2.rect.x -= 2 
         border3.rect.x -= 2
         border4.rect.x -= 2
-        border5.rect.x -= 2             # щоб при запуску стіни рухались ліворуч
+        border5.rect.x -= 2          
         border6.rect.x -= 2
         border7.rect.x -= 2
         border8.rect.x -= 2
@@ -206,14 +206,14 @@ while playing:                              # ігровий цикл
         
         game_finish.rect.x -= 2
 
-        hero.rect.y += 3  # щоб персонаж падав
+        hero.rect.y += 3 
         
         
         score_number = font2.render("Score: " + str(score), 1, (WHITE))
-        window.blit(score_number, (10, 5))                             #створення в лівому верхньому куті завжди видимих надписів, які можуть змінюватись
+        window.blit(score_number, (10, 5))                            
 
         life_number = font2.render("Lifes: " + str(life), 1, (WHITE))
-        window.blit(life_number, (10, 30))                          #створення в лівому верхньому куті завжди видимих надписів, які можуть змінюватись
+        window.blit(life_number, (10, 30))                         
 
         if border.rect.x >= win_width:
             window.blit(win, (200, 200))
@@ -228,19 +228,18 @@ while playing:                              # ігровий цикл
             hero.rect.y = 610
             finish = True
         
-    else:                       # рестарт гри
+    else:                      
         finish = False
         score = 0
         life = 1
 
-        pygame.time.delay(4000) # зробити затримку після програшу 1000 - 1 second, 2000 - 2 seconds 3000 - 3 seconds, 4000 - 4 seconds
+        pygame.time.delay(4000)
 
         hero.rect.x = 5
         hero.rect.y = win_height - 450
 
         for b in borders:
-            b.kill() # забирання стін з екрану
-        
+            b.kill() 
         border = Enemy("border2.png", 300, 470, 50, 250, 10)                    #створення стін
         border2 = Enemy("border2_down.png", 300, 0, 50, 200, 10)
         border3 = Enemy("border2.png", 550, 420, 50, 280, 10)
